@@ -53,3 +53,52 @@ Here [id] is dynamic, can be any value in URL.
     Don’t await normal objects like params.
     Always destructure params for clarity.
     Use TypeScript types for safe coding.
+
+## 📘 Next.js params & Dynamic Routing — Notes
+
+1. What is params?
+    params = object given by Next.js for dynamic routes.
+    Contains values from the URL.
+    Example: visiting /user/nirmal → params = { user: "nirmal" }.
+    👉 params is not a JS keyword, it’s a Next.js built-in prop.
+
+2. Folder Structure Rules
+    Static route: folder name = URL path.
+    app/about/page.tsx → /about
+    Dynamic route: folder with [ ].
+    app/user/[id]/page.tsx → /user/123 or /user/abc
+    Nested route: nested folders = deeper URL.
+    app/dashboard/settings/page.tsx → /dashboard/settings
+    Grouped folder: ( ) for organizing only, hidden in URL.
+    app/(auth)/login/page.tsx → /login
+    👉 page.tsx never appears in URL (only renders UI).
+
+3. Using params
+
+    Inside a page component:
+
+    const User = async ({ params }: { params: { user: string } }) => {
+    const { user } = params;  // get "user" from URL
+    return <h1>Hello {user}</h1>;
+    };
+
+
+    Breakdown
+    ({ params }) → destructuring props
+    : { params: { user: string } } → TypeScript typing
+    const { user } = params; → get value from params.
+
+4. Process Step by Step
+
+    Create folder with [ ] → makes route dynamic
+    Example: app/user/[user]/page.ts
+    Visit /user/nirmal → Next.js sends → params = { user: "nirmal" 
+    Inside page.tsx, destructure params
+    Use value in your component.
+
+✅ Summary:
+
+    () = hides folder name
+    [] = dynamic route
+    page.tsx = actual page (not shown in URL)
+    params = Next.js object with URL values.
